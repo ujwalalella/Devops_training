@@ -1,3 +1,5 @@
 My Application
-Version: 1.1
+Version: 1.2
 Feature: Login
+Feature: Payment
+Feature: User Profile
