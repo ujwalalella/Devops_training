@@ -411,3 +411,17 @@ System information commands help administrators understand the operating system,
 - `w` — Shows logged-in users and what they are doing.
 
 ---
+
+<img width="1601" height="811" alt="Screenshot 2026-08-24 180621" src="https://github.com/user-attachments/assets/efc47b03-59fe-4bdc-8a71-fb91d5c2258f" />
+<img width="1649" height="647" alt="Screenshot 2026-08-24 180654" src="https://github.com/user-attachments/assets/69f25de7-1ac1-4d0b-88cb-03e91e452599" />
+<img width="1678" height="755" alt="Screenshot 2026-08-24 180721" src="https://github.com/user-attachments/assets/539d1557-66c4-4336-8151-92de91e1e5df" />
+<img width="1681" height="875" alt="Screenshot 2026-08-24 180803" src="https://github.com/user-attachments/assets/0f44cfc5-6bab-476f-b0bd-710d0ee8ccbf" />
+<img width="1638" height="670" alt="Screenshot 2026-08-24 181036" src="https://github.com/user-attachments/assets/8da37288-f509-4e53-8e42-1bdf0ef175a7" />
+<img width="1700" height="474" alt="Screenshot 2026-08-24 181056" src="https://github.com/user-attachments/assets/0bc6243a-a2cf-48f1-92e8-f3d61d83a2f4" />
+<img width="1694" height="511" alt="Screenshot 2026-08-24 181112" src="https://github.com/user-attachments/assets/e0b9de85-4b8d-44bf-80f1-929b0d9221e0" />
+<img width="1437" height="134" alt="Screenshot 2026-08-24 181150" src="https://github.com/user-attachments/assets/421f530b-0bef-4cd8-98c9-6c14d4b0aaf8" />
+<img width="1712" height="882" alt="Screenshot 2026-08-24 181215" src="https://github.com/user-attachments/assets/0268a02e-3853-4d15-8c7a-bb628f0e9761" />
+<img width="1699" height="871" alt="Screenshot 2026-08-24 182052" src="https://github.com/user-attachments/assets/63b1f48a-3d07-458c-8f8b-a4f434849552" />
+<img width="1571" height="698" alt="Screenshot 2026-08-24 182148" src="https://github.com/user-attachments/assets/ff049daf-c93f-4f08-8f45-e294b8fc8063" />
+<img width="1644" height="367" alt="Screenshot 2026-08-24 182159" src="https://github.com/user-attachments/assets/c9ae2304-2924-42a0-804a-4a7b5367cef5" />
+
