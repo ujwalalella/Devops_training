@@ -425,3 +425,9 @@ System information commands help administrators understand the operating system,
 <img width="1571" height="698" alt="Screenshot 2026-08-24 182148" src="https://github.com/user-attachments/assets/ff049daf-c93f-4f08-8f45-e294b8fc8063" />
 <img width="1644" height="367" alt="Screenshot 2026-08-24 182159" src="https://github.com/user-attachments/assets/c9ae2304-2924-42a0-804a-4a7b5367cef5" />
 
+#### Text processing:
+
+<img width="1717" height="726" alt="Screenshot 2026-08-25 183214" src="https://github.com/user-attachments/assets/89ff9ca4-5bf0-46e2-aaf9-fe7f1fd75335" />
+<img width="1698" height="788" alt="Screenshot 2026-08-25 183254" src="https://github.com/user-attachments/assets/4d0f3d9f-59e6-48cb-9368-4efb806e5e57" />
+<img width="1711" height="730" alt="Screenshot 2026-08-25 183319" src="https://github.com/user-attachments/assets/3387334a-3ac2-4aca-9003-843e91955023" />
+
