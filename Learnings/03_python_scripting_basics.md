@@ -13,7 +13,9 @@
 <img width="1882" height="311" alt="Screenshot 2026-08-28 174756" src="https://github.com/user-attachments/assets/0d43da9b-cabe-4c02-a726-63ecd356c55b" />
 ### 4. JSON Configuration Reader:
 <img width="1912" height="314" alt="Screenshot 2026-08-28 174845" src="https://github.com/user-attachments/assets/24566992-9e4a-40a3-9674-198ef41cca52" />
+config.json:
 <img width="1899" height="935" alt="Screenshot 2026-08-28 174920" src="https://github.com/user-attachments/assets/6d5ec55b-5427-427f-8d41-bd5ae6137aa1" />
+config_reader.py:
 <img width="1913" height="655" alt="Screenshot 2026-08-28 175001" src="https://github.com/user-attachments/assets/07c742d0-9554-4e74-af03-cab45cae192c" />
 <img width="1881" height="343" alt="Screenshot 2026-08-28 175039" src="https://github.com/user-attachments/assets/52b0493e-ed61-4663-8bec-1d6af710b314" />
 ### 5. API Health Checker
