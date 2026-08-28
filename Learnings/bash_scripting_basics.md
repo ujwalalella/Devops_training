@@ -1392,3 +1392,24 @@ bash -x script.sh            # Debug/trace execution
 ---
 
 # 29. Sample Scripts
+
+### 1. System info:
+<img width="1900" height="418" alt="Screenshot 2026-08-27 183821" src="https://github.com/user-attachments/assets/c6c87258-1d78-4608-94d5-1722d50fa3d7" />
+<img width="1919" height="399" alt="Screenshot 2026-08-27 183854" src="https://github.com/user-attachments/assets/c12948de-3d1b-441b-ba58-760a4b05a287" />
+### 2. Backup a file:
+<img width="1905" height="359" alt="Screenshot 2026-08-27 183929" src="https://github.com/user-attachments/assets/43b25317-7879-47ec-8330-d221546b0b7f" />
+<img width="1905" height="719" alt="Screenshot 2026-08-27 184045" src="https://github.com/user-attachments/assets/6a1351a8-9a9e-45f2-8cf6-260f039aa169" />
+<img width="1888" height="341" alt="Screenshot 2026-08-27 184126" src="https://github.com/user-attachments/assets/b6b7b624-7018-4e52-a817-a48aca03b27e" />
+### 3. Log analyzer:
+<img width="1910" height="456" alt="Screenshot 2026-08-27 184209" src="https://github.com/user-attachments/assets/80c4d9c2-38a2-4585-ba1a-71b94cfd3f39" />
+<img width="1906" height="396" alt="Screenshot 2026-08-27 184430" src="https://github.com/user-attachments/assets/2e663bb4-db5d-496f-a35f-19320825fb7f" />
+<img width="1915" height="711" alt="Screenshot 2026-08-27 184535" src="https://github.com/user-attachments/assets/c7952232-b5fd-4cb0-80a6-bb3d473c4efb" />
+### 4. Checking status of service:
+<img width="1908" height="222" alt="Screenshot 2026-08-27 184607" src="https://github.com/user-attachments/assets/e921eed7-280d-4c05-b1e4-f82de0ab63b8" />
+<img width="1919" height="485" alt="Screenshot 2026-08-27 184630" src="https://github.com/user-attachments/assets/c1ab0ade-887b-4c15-9126-99ff76f1fb96" />
+### 5. Disk Usage Monitor:
+<img width="1918" height="205" alt="Screenshot 2026-08-27 184646" src="https://github.com/user-attachments/assets/1580fff3-81fc-4d15-968e-66d50c762ad7" />
+<img width="1914" height="464" alt="Screenshot 2026-08-27 184716" src="https://github.com/user-attachments/assets/f6472fd3-600f-493f-bff0-72d6cbff06b4" />
+
+
+
