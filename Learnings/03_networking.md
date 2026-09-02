@@ -731,75 +731,379 @@ Real-time applications
 
 # 19. TCP Handshake
 
-A **handshake** is a sequence used to establish or negotiate communication.
+### What is a TCP Handshake?
 
-## 2-way handshake
+A TCP handshake is the process used by TCP to establish communication between a client and a server.
 
-A simple conceptual two-message exchange:
+TCP is connection-oriented, so before application data is normally exchanged, the two sides establish a TCP connection.
 
-```text
-A → B : Request
-B → A : Response
-```
-
-It is not the normal TCP connection-establishment mechanism.
-
-A two-way exchange cannot provide the same confirmation properties as TCP's three-way handshake.
-
-## 3-way TCP handshake
-
-TCP normally establishes a connection using three messages:
+The main handshake to remember is:
 
 ```text
-Client                  Server
-
-   SYN  ───────────────>
-
-        <────────────── SYN-ACK
-
-   ACK  ───────────────>
+SYN → SYN-ACK → ACK
 ```
+
+This is called the TCP three-way handshake.
+
+TCP also uses a multi-step exchange when closing a connection, commonly:
+
+```text
+FIN → ACK → FIN → ACK
+```
+This is commonly called the four-way handshake/termination.
+
+### Why do we need a handshake?
+
+Before sending application data, both sides need to establish that:
+
+- The other side is reachable.
+- Both sides are willing to communicate.
+- Each side knows the other's initial sequence number.
+- Both sides have received the necessary connection information.
+
+A simple two-message exchange is not enough to reliably establish this.
+
+## Two-Way Handshake
+
+<img width="564" height="854" alt="Screenshot 2026-09-02 110439" src="https://github.com/user-attachments/assets/b2414f89-cd4e-4780-a700-5769087ff26b" />
+
+A simplified two-way handshake would look like:
+
+```text
+Client                         Server
+
+req_conn(x) ──────────────────>
+
+             <──────────────── acc_conn(x)
+```
+Meaning:
+```text
+Client → "I want to establish a connection."
+
+Server → "Okay, connection accepted."
+```
+It looks reasonable, but there is a problem.
+
+Problem with two-way handshake
+
+Network packets can be:
+
+- Delayed
+- Lost
+- Duplicated
+- Reordered
+
+Imagine the client's connection request is delayed:
+```text
+Client                         Server
+
+req_conn(x) ────────X
+                    |
+                 delayed
+                    |
+                    ↓
+
+Client times out
+and sends another request
+
+req_conn(x) ──────────────────>
+
+             <──────────────── acc_conn(x)
+```
+The original delayed request might eventually arrive at the server.
+
+The server could potentially mistake an old delayed request for a new connection request.
+
+##### The important idea is:
+
+A two-way exchange does not provide enough confirmation to reliably establish the current connection in the presence of delayed or duplicate messages.
+
+## Three-Way Handshake
+
+<img width="302" height="432" alt="image" src="https://github.com/user-attachments/assets/48f5add0-5ee1-4279-a4cd-3ee34ea831d2" />
+
+TCP solves this using three messages:
+```text
+Client                         Server
+
+SYN ──────────────────────────>
+
+       <────────────────────── SYN-ACK
+
+ACK ──────────────────────────>
+```
+The three steps are:
+
+1. SYN
+2. SYN-ACK
+3. ACK
+5. Step 1 — SYN
+
+The client sends a SYN (Synchronize) packet.
+
+Conceptually:
+```text
+Client                         Server
+
+SYN, Seq=x ───────────────────>
+```
+The client is saying:
+
+"I want to establish a TCP connection. My initial sequence number is x."
+
+x represents the client's initial sequence number.
+
+##### Step 2 — SYN-ACK
+
+The server responds with SYN-ACK.
+```text
+Client                         Server
+
+SYN, Seq=x ───────────────────>
+
+       <────────────────────── SYN-ACK
+                              Seq=y
+                              ACK=x+1
+```
+The server does two things:
+
+ACK
+
+It acknowledges the client's sequence number:
+
+ACK = x + 1
 
 Meaning:
 
+"I received your SYN."
+
+SYN
+
+The server also chooses its own initial sequence number:
+
+Seq = y
+
+Meaning:
+
+"My initial sequence number is y."
+
+So SYN-ACK essentially means:
+
+"I received your request,
+and here is my connection information."
+
+##### Step 3 — ACK
+
+The client sends the final ACK.
 ```text
-1. SYN
-   Client requests to establish a TCP connection.
+Client                         Server
 
-2. SYN-ACK
-   Server acknowledges the request and sends its own synchronization information.
+SYN, Seq=x ───────────────────>
 
-3. ACK
-   Client acknowledges the server.
+       <────────────────────── SYN-ACK
+                              Seq=y
+                              ACK=x+1
+
+ACK, ACK=y+1 ─────────────────>
+```
+The client is saying:
+
+"I received your sequence number y."
+
+Now both sides have confirmation.
+```text
+Client knows:
+Server received my SYN.
+
+Server knows:
+Client received my SYN-ACK.
+```
+The TCP connection is now established.
+
+### Why Three Messages?
+
+The important sequence is:
+```text
+Client → Server
+       SYN
+       "I want to connect."
+
+Server → Client
+       SYN-ACK
+       "I received you, and here's my sequence number."
+
+Client → Server
+       ACK
+       "I received your sequence number."
+```
+Therefore:
+```text
+SYN
+ ↓
+SYN-ACK
+ ↓
+ACK
+```
+Then:
+
+TCP CONNECTION ESTABLISHED
+#####  What are x and y?
+
+The diagrams use x and y to represent the initial sequence numbers chosen by each side.
+```text
+Client → Server
+Client's initial sequence number = x
+
+Server → Client
+Server's initial sequence number = y
+```
+The important concept is:
+
+Client has its own sequence number
+Server has its own sequence number
+
+During the handshake, each side learns and acknowledges the other's sequence information.
+
+You don't need to memorize the exact sequence-number arithmetic yet. The important pattern is:
+```text
+SYN(x)
+SYN-ACK(y, ACK x+1)
+ACK(y+1)
 ```
 
-After this, the TCP connection is established and application data can be exchanged.
+##### After the Handshake
 
-## 4-way termination
-
-TCP connection termination commonly uses a four-segment exchange because each direction of the connection is closed independently:
-
+Once the connection is established, application data can be exchanged.
 ```text
-Client                  Server
+Client                         Server
 
-   FIN  ───────────────>
+SYN ──────────────────────────>
 
-        <────────────── ACK
+       <────────────────────── SYN-ACK
 
-        <────────────── FIN
+ACK ──────────────────────────>
 
-   ACK  ───────────────>
+       CONNECTION ESTABLISHED
+
+DATA ─────────────────────────>
+
+       <────────────────────── ACK
+
+DATA ─────────────────────────>
+
+       <────────────────────── ACK
+```
+TCP uses acknowledgements and sequence numbers to support reliable, ordered delivery.
+
+## Four-Way TCP Connection Termination
+
+The TCP connection is full-duplex, meaning both sides can independently send data.
+
+Therefore, closing the connection generally involves separately closing each direction.
+
+A common four-segment exchange is:
+```text
+Client                         Server
+
+FIN ──────────────────────────>
+
+       <────────────────────── ACK
+
+       <────────────────────── FIN
+
+ACK ──────────────────────────>
 ```
 
-So remember:
+<img width="1024" height="768" alt="image" src="https://github.com/user-attachments/assets/b9be9d8e-2432-47e2-bfb7-5b3d5e5109af" />
 
+This is commonly referred to as a four-way handshake or four-way termination.
+
+##### Step 1 — Client sends FIN
+
+Suppose the client has finished sending data.
+
+It sends:
 ```text
-TCP connection establishment → 3-way handshake
-TCP connection termination   → commonly 4 segments
+FIN
 ```
+Meaning:
 
-The "2-way handshake" is a general two-message exchange, not the normal TCP connection setup.
+"I am finished sending data in this direction."
+```text
+Client                         Server
 
+FIN ──────────────────────────>
+```
+The server may still have data to send.
+
+##### Step 2 — Server sends ACK
+
+The server acknowledges the FIN:
+```text
+Client                         Server
+
+FIN ──────────────────────────>
+
+       <────────────────────── ACK
+```
+Meaning:
+
+"I received your request to close your sending direction."
+
+The server can still continue sending data if it has any remaining data.
+
+##### Step 3 — Server sends FIN
+
+Once the server has finished sending its data, it sends its own FIN:
+```text
+Client                         Server
+
+FIN ──────────────────────────>
+
+       <────────────────────── ACK
+
+       <────────────────────── FIN
+```
+Meaning:
+
+"I am also finished sending data."
+
+##### Step 4 — Client sends ACK
+
+The client acknowledges the server's FIN:
+```text
+Client                         Server
+
+FIN ──────────────────────────>
+
+       <────────────────────── ACK
+
+       <────────────────────── FIN
+
+ACK ──────────────────────────>
+```
+Now the TCP connection can be fully closed.
+
+### Three-Way vs Four-Way
+Purpose	Exchange
+TCP connection establishment	3-way
+TCP connection termination	4 segments commonly
+Establishment
+```text
+SYN
+ ↓
+SYN-ACK
+ ↓
+ACK
+Termination
+FIN
+ ↓
+ACK
+ ↓
+FIN
+ ↓
+ACK
+```
 ---
 
 # 20. OSI 7-Layer Model
@@ -815,6 +1119,7 @@ The **OSI (Open Systems Interconnection) model** is a conceptual model that divi
 2  Data Link
 1  Physical
 ```
+<img width="713" height="768" alt="image" src="https://github.com/user-attachments/assets/4b5c8398-d8e4-480b-a25e-df1f1db121c2" />
 
 ## Layer 7 — Application
 
@@ -1007,6 +1312,7 @@ The four layers are:
 2  Internet
 1  Network Access
 ```
+<img width="1600" height="1290" alt="image" src="https://github.com/user-attachments/assets/66ac9294-0eeb-4fdd-a0f9-425f24614bfd" />
 
 ## Application Layer
 
@@ -1148,126 +1454,4 @@ The destination IP generally remains the end-to-end destination while the Layer 
 
 ---
 
-# 25. Key Things to Remember
 
-```text
-IP
-→ Logical Layer 3 address
-
-MAC
-→ Layer 2/link address
-
-Packet
-→ Layer 3 data unit
-
-Protocol
-→ Rules for communication
-
-Host
-→ Network-connected endpoint
-
-Switch
-→ Primarily Layer 2, uses MAC addresses
-
-Router
-→ Primarily Layer 3, uses IP addresses
-
-Firewall
-→ Controls traffic using security rules
-
-Subnet
-→ Smaller logical IP network
-
-Subnet mask
-→ Defines network/host boundary
-
-CIDR
-→ Prefix-length notation such as /24
-
-Port
-→ Identifies a transport-layer service/endpoint
-
-DNS
-→ Resolves names to DNS information such as IP addresses
-
-TCP
-→ Connection-oriented, reliable/ordered transport
-
-UDP
-→ Connectionless transport with lower protocol overhead
-
-TCP setup
-→ 3-way handshake
-
-TCP termination
-→ Commonly 4 segments
-
-OSI
-→ 7-layer conceptual model
-
-TCP/IP
-→ 4-layer practical model
-```
-
----
-
-# 26. The Big Picture
-
-```text
-                         APPLICATION
-                  HTTP / HTTPS / DNS / SSH
-                              │
-                              ▼
-                         TRANSPORT
-                     TCP / UDP / PORTS
-                              │
-                              ▼
-                          INTERNET
-                        IP / ROUTING
-                              │
-                              ▼
-                      NETWORK ACCESS
-                    MAC / ETHERNET / Wi-Fi
-                              │
-                              ▼
-                          PHYSICAL
-                     Cables / Radio / Bits
-```
-
-And for a real request:
-
-```text
-Browser
-   │
-   ├── DNS → Find destination information
-   │
-   ├── TCP → Establish transport connection
-   │
-   ├── Port 443 → Identify HTTPS service
-   │
-   ├── IP → Identify destination network/host
-   │
-   ├── Router → Forward packet toward destination
-   │
-   ├── Switch → Forward local frames
-   │
-   └── Firewall → Allow/block traffic according to rules
-```
-
-This gives the foundation needed for the next networking topics:
-
-```text
-Routing
-   ↓
-TCP/UDP
-   ↓
-DNS
-   ↓
-Load Balancing
-   ↓
-Network troubleshooting
-   ↓
-Cloud networking
-   ↓
-Docker/Kubernetes networking
-```
